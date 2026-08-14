@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Vahan Seva Auto-Mall"
 include(":app")
- 
