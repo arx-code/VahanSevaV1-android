@@ -23,8 +23,14 @@ import com.vahanseva.auto_mall.presentation.components.buttons.VahanSevaTextButt
 import com.vahanseva.auto_mall.presentation.components.inputs.TextInput
 import com.vahanseva.auto_mall.presentation.theme.Spacing
 
+import androidx.compose.runtime.collectAsState
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.vahanseva.auto_mall.presentation.viewmodel.AuthViewModel
+import com.vahanseva.auto_mall.presentation.viewmodel.AuthUiState
+import androidx.compose.runtime.LaunchedEffect
+
 /**
- * Login screen with mock authentication
+ * Login screen with authentication
  * - Email/phone input
  * - Password input
  * - Login button
@@ -34,13 +40,26 @@ import com.vahanseva.auto_mall.presentation.theme.Spacing
 fun LoginScreen(
     onLoginSuccess: () -> Unit,
     onNavigateToRegister: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
-    var isLoading by remember { mutableStateOf(false) }
+    
+    val uiState by viewModel.uiState.collectAsState()
+
+    // Handle UI state changes
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is AuthUiState.Success -> onLoginSuccess()
+            is AuthUiState.Error -> {
+                // Handle error (e.g., show snackbar)
+            }
+            else -> {}
+        }
+    }
 
     Column(
         modifier = modifier
@@ -114,16 +133,10 @@ fun LoginScreen(
                 }
 
                 if (!hasError) {
-                    // Mock authentication - always succeeds
-                    isLoading = true
-                    // Simulate network delay
-                    android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
-                        isLoading = false
-                        onLoginSuccess()
-                    }, 1000)
+                    viewModel.login(email, password)
                 }
             },
-            loading = isLoading,
+            loading = uiState is AuthUiState.Loading,
             modifier = Modifier.fillMaxWidth()
         )
 

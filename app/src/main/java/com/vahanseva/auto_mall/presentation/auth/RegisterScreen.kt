@@ -22,11 +22,18 @@ import com.vahanseva.auto_mall.presentation.components.buttons.VahanSevaTextButt
 import com.vahanseva.auto_mall.presentation.components.inputs.TextInput
 import com.vahanseva.auto_mall.presentation.theme.Spacing
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.vahanseva.auto_mall.presentation.viewmodel.AuthViewModel
+import com.vahanseva.auto_mall.presentation.viewmodel.AuthUiState
+
 /**
- * Register screen with mock registration
+ * Register screen with authentication
  * - Name input
  * - Email input
  * - Phone input
+ * - Location input
  * - Password input
  * - Register button
  * - Login link
@@ -35,17 +42,33 @@ import com.vahanseva.auto_mall.presentation.theme.Spacing
 fun RegisterScreen(
     onRegisterSuccess: () -> Unit,
     onNavigateToLogin: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
+    var location by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    
     var nameError by remember { mutableStateOf<String?>(null) }
     var emailError by remember { mutableStateOf<String?>(null) }
     var phoneError by remember { mutableStateOf<String?>(null) }
+    var locationError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
-    var isLoading by remember { mutableStateOf(false) }
+    
+    val uiState by viewModel.uiState.collectAsState()
+
+    // Handle UI state changes
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is AuthUiState.Success -> onRegisterSuccess()
+            is AuthUiState.Error -> {
+                // Handle error
+            }
+            else -> {}
+        }
+    }
 
     Column(
         modifier = modifier
@@ -118,6 +141,21 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(Spacing.md))
 
+        // Location input
+        TextInput(
+            value = location,
+            onValueChange = {
+                location = it
+                locationError = null
+            },
+            label = "Location",
+            placeholder = "Enter your city",
+            error = locationError,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(Spacing.md))
+
         // Password input
         TextInput(
             value = password,
@@ -152,21 +190,20 @@ fun RegisterScreen(
                     phoneError = "Phone is required"
                     hasError = true
                 }
+                if (location.isEmpty()) {
+                    locationError = "Location is required"
+                    hasError = true
+                }
                 if (password.isEmpty()) {
                     passwordError = "Password is required"
                     hasError = true
                 }
 
                 if (!hasError) {
-                    // Mock registration - always succeeds
-                    isLoading = true
-                    android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
-                        isLoading = false
-                        onRegisterSuccess()
-                    }, 1000)
+                    viewModel.register(email, password, name, phone, location)
                 }
             },
-            loading = isLoading,
+            loading = uiState is AuthUiState.Loading,
             modifier = Modifier.fillMaxWidth()
         )
 

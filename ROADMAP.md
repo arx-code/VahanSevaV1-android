@@ -8,7 +8,7 @@
 - [x] GitHub setup guide created
 - [x] Commit history established
 
-## Phase 1: Foundation (Weeks 1-2)
+## Phase 1: Foundation
 
 ### Authentication System
 - [ ] **Login Screen** - Email/password authentication
@@ -29,7 +29,7 @@
 
 ---
 
-## Phase 2: Browse & Search (Weeks 2-3)
+## Phase 2: Browse & Search
 
 ### Car Listing Browse
 - [ ] **Home/Browse Screen** - Display car listings with pagination
@@ -44,19 +44,19 @@
 - [ ] **Search Screen** - Global car search functionality
 - [ ] **Filter Screen** - Advanced filtering options
 - [ ] **Filter Models**:
-  - Price range (min/max)
-  - Mileage range
-  - Brand/Model selection
-  - Fuel type (Petrol, Diesel, Electric, Hybrid)
-  - Transmission (Manual, Automatic)
-  - Location-based search
-  - Year range
+    - Price range (min/max)
+    - Mileage range
+    - Brand/Model selection
+    - Fuel type (Petrol, Diesel, Electric, Hybrid)
+    - Transmission (Manual, Automatic)
+    - Location-based search
+    - Year range
 
 **Key Files**: `SearchFilters.kt`, `CarService.kt` (API endpoints)
 
 ---
 
-## Phase 3: Car Details & Interactions (Weeks 3-4)
+## Phase 3: Car Details & Interactions
 
 ### Car Detail View
 - [ ] **Car Detail Screen** - Complete car information
@@ -79,7 +79,7 @@
 
 ---
 
-## Phase 4: Messaging System (Weeks 4-5)
+## Phase 4: Messaging System
 
 ### Real-time Messaging
 - [ ] **Conversations List** - Display active chats
@@ -98,7 +98,7 @@
 
 ---
 
-## Phase 5: User Profile & Listings Management (Weeks 5-6)
+## Phase 5: User Profile & Listings Management 
 
 ### User Profile
 - [ ] **Profile Screen** - User information display
@@ -113,11 +113,11 @@
 ### My Listings (Seller Features)
 - [ ] **My Listings Screen** - Show user's posted cars
 - [ ] **Add Car Listing** - Multi-step form to post new car
-  - Step 1: Basic info (brand, model, year, price)
-  - Step 2: Details (mileage, fuel, transmission, color)
-  - Step 3: Images upload
-  - Step 4: Location & description
-  - Step 5: Review & submit
+    - Step 1: Basic info (brand, model, year, price)
+    - Step 2: Details (mileage, fuel, transmission, color)
+    - Step 3: Images upload
+    - Step 4: Location & description
+    - Step 5: Review & submit
 - [ ] **Edit Listing** - Modify existing listing
 - [ ] **Delete Listing** - Remove car from marketplace
 - [ ] **Listing Status** - Active, sold, inactive states
@@ -127,7 +127,7 @@
 
 ---
 
-## Phase 6: Image Handling & Upload (Week 6)
+## Phase 6: Image Handling & Upload
 
 ### Image Management
 - [ ] **Image Picker** - Select multiple images from gallery
@@ -141,7 +141,7 @@
 
 ---
 
-## Phase 7: Advanced Features (Weeks 7-8)
+## Phase 7: Advanced Features 
 
 ### Search Analytics
 - [ ] **Search History** - Recently searched terms
@@ -160,7 +160,7 @@
 
 ---
 
-## Phase 8: Testing & Quality (Week 8+)
+## Phase 8: Testing & Quality
 
 ### Unit Tests
 - [ ] ViewModel tests for all major ViewModels
@@ -179,7 +179,7 @@
 
 ---
 
-## Phase 9: Deployment & Release (Week 9+)
+## Phase 9: Deployment & Release
 
 ### Release Preparation
 - [ ] ProGuard/R8 configuration
