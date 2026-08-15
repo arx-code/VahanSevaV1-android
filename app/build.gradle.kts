@@ -112,5 +112,8 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+    
+    // Coil for Image Loading
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
 }

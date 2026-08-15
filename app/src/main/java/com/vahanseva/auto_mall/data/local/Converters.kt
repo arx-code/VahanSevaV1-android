@@ -4,9 +4,11 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
+import com.vahanseva.auto_mall.data.model.User
+
 /**
  * Type converters for Room database
- * Handles conversion of complex types like List<String> to/from database-compatible formats
+ * Handles conversion of complex types like List<String> and User object to/from database-compatible formats
  */
 object Converters {
     private val gson = Gson()
@@ -24,5 +26,15 @@ object Converters {
             val type = object : TypeToken<List<String>>() {}.type
             gson.fromJson(value, type)
         }
+    }
+
+    @TypeConverter
+    fun fromUser(user: User?): String? {
+        return gson.toJson(user)
+    }
+
+    @TypeConverter
+    fun toUser(value: String?): User? {
+        return gson.fromJson(value, User::class.java)
     }
 }

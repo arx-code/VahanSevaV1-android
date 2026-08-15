@@ -62,6 +62,9 @@ data class Car(
     @SerializedName("images")
     val images: List<String>, // URLs to car images
 
+    @SerializedName("seller")
+    val seller: User,
+
     @ColumnInfo(name = "is_featured")
     @SerializedName("is_featured")
     val isFeatured: Boolean = false,
